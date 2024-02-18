@@ -1,1 +1,11 @@
-# Créer un Dockerfile pour cette application en mode production
+FROM node:lts
+
+WORKDIR /app
+
+COPY . .
+
+COPY .env.example .env
+
+RUN npm install
+
+RUN npm run build
