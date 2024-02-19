@@ -1,2 +1,38 @@
 # Définir cette configuration Compose afin de lancer l'application
 # The Computer Club's Blog en production.
+version: '3'
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: $POSTGRES_USER
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  rocket:
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB
+      - ROCKET_ADDRESS=0.0.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+
+
+volumes:
+  db_data:
+    driver: local

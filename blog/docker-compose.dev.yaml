@@ -10,6 +10,19 @@ services:
       POSTGRES_USER: thomas
     volumes:
       - db_data:/var/lib/postgresql/data
+  rocket:
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB
+      - ROCKET_ADDRESS=0.0.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
 
 volumes:
   db_data:
