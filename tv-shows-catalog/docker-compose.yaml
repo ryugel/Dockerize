@@ -2,10 +2,8 @@
 services:
   server:
     build: ./server
-    ports:
-      - "3000:3000"
-
+    
   client:
     build: ./client
     ports:
-     - "4173:4173"
+     - "3000:4173"
