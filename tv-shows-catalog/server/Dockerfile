@@ -1,11 +1,9 @@
-FROM node:lts
+FROM node:alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
-
-RUN npm run build
+RUN npm install && npm run build
 
 CMD node /app/dist/main.js

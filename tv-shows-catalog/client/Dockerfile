@@ -1,13 +1,11 @@
-FROM node:lts
+FROM node:alpine
 
-WORKDIR ./client 
+WORKDIR /app/client
 
 COPY . .
 
-COPY .env.example .env
+COPY .env.client .
 
-RUN npm install
-
-RUN npm run build
+RUN npm install && npm run build
 
 CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
