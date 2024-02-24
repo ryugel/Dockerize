@@ -6,4 +6,4 @@ services:
   client:
     build: ./client
     ports:
-     - "3000:4173"
+      - "${PORT}:4173"
