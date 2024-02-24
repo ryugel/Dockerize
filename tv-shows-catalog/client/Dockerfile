@@ -1,6 +1,6 @@
-FROM node:lts
+FROM node:alpine
 
-WORKDIR ./client 
+WORKDIR /app/client
 
 COPY . .
 
