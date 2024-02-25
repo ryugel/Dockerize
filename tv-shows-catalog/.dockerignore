@@ -1,0 +1,12 @@
+.env
+client/.env.client
+node_modules
+server/node_modules
+client/.svelte
+client/.cache
+client/public/__sapper__
+server/.nest
+server/dist
+server/.cache
+.git
+.vscode
